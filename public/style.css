@@ -1,0 +1,17 @@
+.container{
+    width: 970px;
+    margin: 0 auto;
+}
+.users{
+    display:flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.user{
+
+    padding: 9px;
+    border:1px solid green;
+    margin-bottom: 9px;
+    width: 22%;
+}

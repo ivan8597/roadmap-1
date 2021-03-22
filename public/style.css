@@ -2,13 +2,13 @@
     width: 970px;
     margin: 0 auto;
 }
-.users{
+.users,.items{
     display:flex;
     justify-content: space-between;
     flex-wrap: wrap;
 }
 
-.user{
+.user,.item{
 
     padding: 9px;
     border:1px solid green;

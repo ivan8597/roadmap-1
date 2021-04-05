@@ -42,10 +42,10 @@ const UserPage = () => {
                 <p>{user.email}</p>
             </div>
 
-            <div className="items">
+            <div className="row">
                 {posts.map((post) => {
                     return (
-                        <div key={post.id} className="item">
+                        <div key={post.id} className="col-md-3 item">
                             <h2>{post.title}</h2>
                             <p>{post.body}</p>
                             <Link href={`/posts/${post.id}`}>

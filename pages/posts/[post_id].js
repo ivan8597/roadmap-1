@@ -41,10 +41,10 @@ const PostPage = () => {
              <p>{post.body}</p>
          </div>
 
-         <div className="items">
+         <div className="row">
                 {comments.map((comment) => {
                     return (
-                        <div key={comment.id} className="item">
+                        <div key={comment.id} className="col-md-3 item">
                             <h2>{comment.name}</h2>
                             <p>{comment.body}</p>
                         </div>

@@ -15,10 +15,11 @@ const Page = () => {
   }, []);
 
   return (
-    <div className="container users">
+    <div className="container">
+      <div className='row'>
       {items.map((item) => {
         return (
-          <div key={item.id} className="user">
+          <div key={item.id} className="col-md-3 user">
             <h2>{item.name}</h2>
             <p>{item.email}</p>
             <Link href={`/users/${item.id}`}>
@@ -27,6 +28,7 @@ const Page = () => {
           </div>
         );
       })}
+      </div>
     </div>
   );
 };

@@ -1,0 +1,19 @@
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+@import './blog.scss';
+// .container{
+//     width: 970px;
+//     margin: 0 auto;
+// }
+// .users,.items{
+//     display:flex;
+//     justify-content: space-between;
+//     flex-wrap: wrap;
+// }
+
+.user,.item{
+
+    padding: 9px;
+    border:1px solid green;
+    margin-bottom: 9px;
+
+}

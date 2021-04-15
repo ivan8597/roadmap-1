@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
-import Link from 'next/link'
+import MainLayout from "../components/layouts/Main"
+import Avatar from '../components/users/Avatar'
 //
 
 const API_URL = "http://localhost:3001"
@@ -15,21 +16,18 @@ const Page = () => {
   }, []);
 
   return (
-    <div className="container">
+   <MainLayout>
       <div className='row'>
       {items.map((item) => {
         return (
-          <div key={item.id} className="col-md-3 user">
-            <h2>{item.name}</h2>
-            <p>{item.email}</p>
-            <Link href={`/users/${item.id}`}>
-              <a>Open</a>
-            </Link>
+          <div key={item.id} className="col-md-3 ">
+            <Avatar item={item} link={`/users/${item.id}`}/>
+  
           </div>
         );
       })}
       </div>
-    </div>
+    </MainLayout>
   );
 };
 export default Page;

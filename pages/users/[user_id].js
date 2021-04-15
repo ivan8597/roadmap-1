@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { useState, useEffect } from "react"
 import Link from 'next/link'
+import MainLayout from "../../components/layouts/Main"
 const API_URL = "http://localhost:3001"
 const UserPage = () => {
     const router = useRouter()
@@ -36,7 +37,7 @@ const UserPage = () => {
         return "loading"
     }
     return (
-        <div className="container">
+        <MainLayout>
             <div>
                 <h2>{user.name}</h2>
                 <p>{user.email}</p>
@@ -55,7 +56,7 @@ const UserPage = () => {
                     );
                 })}
             </div>
-        </div>
+        </MainLayout>
 
     )
 

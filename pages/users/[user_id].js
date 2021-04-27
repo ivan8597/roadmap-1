@@ -2,6 +2,10 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from "react"
 import Link from 'next/link'
 import MainLayout from "../../components/layouts/Main"
+import PostCard from "../../components/cards/Post"
+import Avatar from "../../components/users/Avatar"
+import AboutAddress from '../../components/cards/AboutAddress'
+import AboutCompany from '../../components/cards/AboutCompany'
 const API_URL = "http://localhost:3001"
 const UserPage = () => {
     const router = useRouter()
@@ -38,20 +42,24 @@ const UserPage = () => {
     }
     return (
         <MainLayout>
-            <div>
-                <h2>{user.name}</h2>
-                <p>{user.email}</p>
+            <div className="row">
+                <div className="col-md-4">
+                <Avatar item={user}/>
+                </div>
+                <div className="col-md-4">
+                    <AboutCompany company={user.company}/>
+                </div>
+                <div className="col-md-4">
+                    <AboutAddress address={user.address}/>
+                </div>
             </div>
 
             <div className="row">
                 {posts.map((post) => {
                     return (
-                        <div key={post.id} className="col-md-3 item">
-                            <h2>{post.title}</h2>
-                            <p>{post.body}</p>
-                            <Link href={`/posts/${post.id}`}>
-                                <a>Open</a>
-                            </Link>
+                        <div key={post.id} className="col-md-6 ">
+                        
+                                <PostCard item={post} link={`/posts/${post.id}`} />
                         </div>
                     );
                 })}

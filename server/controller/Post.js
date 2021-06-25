@@ -1,7 +1,7 @@
 const Post = require("../model/mongo/Post")
 const list = async (req, res,next) => {
     try {
-        const {skip=0,limit=10} =req.query
+        const {skip=0,limit=10} =req.queryn
         const userId = req.query.userId
     const criteria = {}
     if (userId) {

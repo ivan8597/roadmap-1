@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import MainLayout from "../components/layouts/Main"
 import Preview from "../components/movies/Preview"
-
+import Line from "../components/movies/Line"
 //
 
 const API_URL = "http://localhost:3001"
@@ -25,6 +25,7 @@ const Page = () => {
     }, [year,page]);
 
     return (
+        <>
         <MainLayout>
             <div className="btn-group">
                 {years.map((year)=>{
@@ -41,17 +42,18 @@ const Page = () => {
                     setPage(page+1)
                    }}  className="btn btn-primary">Next ({page})</button>
 
-            <div className='row'>
+            
 
                 {items.map((item) => {
-                    return (
-                        <div key={item._id} className="col-md-3 ">
-                            <Preview img={item.poster} title={item.title} text={item.plot} />
-                        </div>
-                    );
+                    return (<Line movie={item}  key={item._id} url={`/movies/${item._id}`}/> )
+                        // <div key={item._id} className="col-md-3 ">
+                        //     <Preview img={item.poster} title={item.title} text={item.plot} />
+                        // </div>
+                  
                 })}
-            </div>
+         
         </MainLayout>
+        </>
     );
 };
 export default Page;

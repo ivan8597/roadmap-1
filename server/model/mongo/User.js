@@ -24,10 +24,14 @@ const AddressSchema = new Schema({
 
 
 const UserSchema = new Schema({
-    id: Number,
-    name: String,
+   
+    name: {
+         type: String, required: true
+    },
     username: String,
-    email: String,
+    email:{
+        type: String, required:true, unique:true
+    } ,
     address:AddressSchema,
     phone: String,
     website:String,

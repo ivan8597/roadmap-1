@@ -21,7 +21,7 @@ const Page = () => {
       {items.map((item) => {
         return (
           <div key={item.id} className="col-md-3 ">
-            <Avatar item={item} link={`/users/${item.id}`}/>
+            <Avatar item={item} link={`/users/${item._id}`}/>
   
           </div>
         );

@@ -59,7 +59,7 @@ const UserPage = () => {
                     return (
                         <div key={post.id} className="col-md-6 ">
                         
-                                <PostCard item={post} link={`/posts/${post.id}`} />
+                                <PostCard item={post} link={`/posts/${post._id}`} />
                         </div>
                     );
                 })}

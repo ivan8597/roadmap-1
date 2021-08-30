@@ -1,4 +1,5 @@
 const User = require('../model/mongo/User')
+const Post = require('../model/mongo/Post')
 const list = async (req, res, next) => {
     try {
         const { skip = 0, limit = 10 } = req.query
@@ -50,9 +51,28 @@ const update = async (req, res, next) => {
     }
 
 }
+const remove = async (req,res, next) => {
+    try {
+        
+        const user=await User.findByIdAndDelete(req.params.id)
+        const posts=await Post.find({userId:req.params.id})
+        if(posts.length){
+            const error=new Error("Access denied. Need to remove posts")
+            error.statusCode="403"
+            throw error
+        }
+        res.json({
+            item: user
+        })
+    } catch (error) {
+        next(error)
+    }
+
+}
 module.exports = {
     list,
     getById,
     create,
-    update
+    update,
+    remove
 }

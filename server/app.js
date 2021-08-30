@@ -17,7 +17,8 @@ app.get('/users',UserController.list )
 
 app.get('/users/:id',UserController.getById );
 app.post('/users',UserController.create);
-app.put('/users/:id',UserController.update)
+app.put('/users/:id',UserController.update);
+app.delete('/users/:id',UserController.remove);
 
 /** POSTS */
 app.get('/posts', PostController.list);

@@ -53,14 +53,15 @@ const update = async (req, res, next) => {
 }
 const remove = async (req,res, next) => {
     try {
-        
-        const user=await User.findByIdAndDelete(req.params.id)
         const posts=await Post.find({userId:req.params.id})
         if(posts.length){
+            
             const error=new Error("Access denied. Need to remove posts")
             error.statusCode="403"
             throw error
+            
         }
+        const user=await User.findByIdAndDelete(req.params.id)
         res.json({
             item: user
         })

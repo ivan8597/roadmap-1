@@ -22,6 +22,9 @@ app.delete('/users/:id',UserController.remove);
 
 /** POSTS */
 app.get('/posts', PostController.list);
+app.post('/posts',PostController.create);
+app.put('/posts/:id',PostController.update);
+app.delete('/posts/:id', PostController.remove);
 
 app.get('/posts/:id', PostController.getById);
 /** Comments */

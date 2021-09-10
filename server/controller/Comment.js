@@ -27,7 +27,51 @@ const getById = async (req, res,next) => {
     }
     
 }
+const create = async (req, res, next) => {
+    try {
+        const comment = new Comment(req.body)
+        await comment.save()
+
+        res.json({
+            item: comment
+        })
+    } catch (error) {
+        next(error)
+    }
+
+}
+const update = async (req, res, next) => {
+    try {
+        const data=req.body
+        delete data._id
+        delete data.postId
+        const comment=await Comment.findByIdAndUpdate(req.params.id, data, {new:true})
+       
+
+        res.json({
+            item: comment
+        })
+    } catch (error) {
+        next(error)
+    }
+
+}
+const remove = async (req,res, next) => {
+    try {
+        
+        const comment=await Comment.findByIdAndDelete(req.params.id)
+       
+        res.json({
+            item: comment
+        })
+    } catch (error) {
+        next(error)
+    }
+}
 module.exports = {
     list,
-    getById
+    getById,
+    create,
+    update,
+    remove
 }

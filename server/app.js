@@ -29,8 +29,10 @@ app.delete('/posts/:id', PostController.remove);
 app.get('/posts/:id', PostController.getById);
 /** Comments */
 app.get('/comments', CommentController.list);
-
+app.post('/comments',CommentController.create)
 app.get('/comments/:id',CommentController.getById);
+app.put('/comments', CommentController.update);
+app.delete('/comments/:id', CommentController.remove);
 
 app.use('*', (req, res) => {
   res.status(404).json({

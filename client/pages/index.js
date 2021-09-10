@@ -1,24 +1,22 @@
-import { useState, useEffect } from "react"
+import {  useEffect } from "react"
 import MainLayout from "../components/layouts/Main"
 import Avatar from '../components/users/Avatar'
-//
+import { useMainContext } from "../components/context/Main"
 
-const API_URL = "http://localhost:3001"
+
 const Page = () => {
-  const [items, setItems] = useState([])
+  const {users,loadUsers}=useMainContext()
+  
 
   useEffect(() => {
-    fetch(`${API_URL}/users`)
-      .then((res) => res.json())
-      .then((data) => {
-        setItems(data.items);
-      });
+   loadUsers()
   }, []);
 
   return (
    <MainLayout>
+    
       <div className='row'>
-      {items.map((item) => {
+      {users.map((item) => {
         return (
           <div key={item.id} className="col-md-3 ">
             <Avatar item={item} link={`/users/${item._id}`}/>

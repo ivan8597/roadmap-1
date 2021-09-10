@@ -1,49 +1,30 @@
 import { useRouter } from 'next/router'
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import MainLayout from "../../components/layouts/Main"
 import ArticleCard from "../../components/cards/Article"
 import TostCard from "../../components/cards/Tost"
-const API_URL = "http://localhost:3001"
+import { useMainContext } from '../../components/context/Main'
+
+
 const PostPage = () => {
     const router = useRouter()
     const { post_id } = router.query
-    const [post, setPost] = useState(null)
-    const [comments, setComments] = useState([])
-    const [user, setUser] = useState(null)
-
+    const {post,loadPost,user,loadUser,comments,LoadComments}=useMainContext()
+    
     useEffect(() => {
         if (!post_id) {
             return
         }
-        fetch(`${API_URL}/comments?postId=${post_id}`)
-            .then((res) => res.json())
-            .then((data) => {
-                setComments(data.items);
-            });
-    }, [post_id]);
-
-
-
-    useEffect(() => {
-        if (!post_id) {
-            return
-        }
-        fetch(`${API_URL}/posts/${post_id}`)
-            .then((res) => res.json())
-            .then((data) => {
-                setPost(data.item);
-            });
+        loadComments(post_id)
+        loadPost(post_id)
     }, [post_id]);
 
     useEffect(() => {
         if (!post) {
             return
         }
-        fetch(`${API_URL}/users/${post.userId}`)
-            .then((res) => res.json())
-            .then((data) => {
-                setUser(data.item);
-            });
+        loadUser(post.userId)
+        
     }, [post]);
     if (!post || !user) {
         return "loading"

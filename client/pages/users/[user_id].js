@@ -1,42 +1,25 @@
 import { useRouter } from 'next/router'
-import { useState, useEffect } from "react"
-import Link from 'next/link'
+import { useMainContext } from '../../components/context/Main'
+import { useEffect } from "react"
 import MainLayout from "../../components/layouts/Main"
 import PostCard from "../../components/cards/Post"
 import Avatar from "../../components/users/Avatar"
 import AboutAddress from '../../components/cards/AboutAddress'
 import AboutCompany from '../../components/cards/AboutCompany'
+
 const API_URL = "http://localhost:3001"
 const UserPage = () => {
     const router = useRouter()
     const { user_id } = router.query
-    const [user, setUser] = useState(null)
-
-    const [posts, setPosts] = useState([])
-
+    const {user,loadUser,posts,loadPosts}=useMainContext()
     useEffect(() => {
         if (!user_id) {
             return
         }
-        fetch(`${API_URL}/posts?userId=${user_id}`)
-            .then((res) => res.json())
-            .then((data) => {
-                setPosts(data.items);
-            });
+       loadPosts(user_id)
+       loadUser(user_id)
     }, [user_id]);
 
-
-
-    useEffect(() => {
-        if (!user_id) {
-            return
-        }
-        fetch(`${API_URL}/users/${user_id}`)
-            .then((res) => res.json())
-            .then((data) => {
-                setUser(data.item);
-            });
-    }, [user_id]);
     if (!user) {
         return "loading"
     }

@@ -6,19 +6,21 @@ import PostCard from "../../components/cards/Post"
 import Avatar from "../../components/users/Avatar"
 import AboutAddress from '../../components/cards/AboutAddress'
 import AboutCompany from '../../components/cards/AboutCompany'
+import Pagination from '../../components/nav/Pagination'
 
-const API_URL = "http://localhost:3001"
 const UserPage = () => {
     const router = useRouter()
     const { user_id } = router.query
-    const {user,loadUser,posts,loadPosts}=useMainContext()
+    const {user,loadUser,posts,loadPosts,activePostPage,
+        setActivePostPage,
+        postPages}=useMainContext()
     useEffect(() => {
         if (!user_id) {
             return
         }
        loadPosts(user_id)
        loadUser(user_id)
-    }, [user_id]);
+    }, [user_id,activePostPage]);
 
     if (!user) {
         return "loading"
@@ -37,6 +39,11 @@ const UserPage = () => {
                 </div>
             </div>
 
+            <Pagination
+     activePage={activePostPage}
+     setActivePage={setActivePostPage}
+     pages={postPages}
+     />
             <div className="row">
                 {posts.map((post) => {
                     return (

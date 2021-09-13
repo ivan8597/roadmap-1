@@ -9,7 +9,7 @@ import { useMainContext } from '../../components/context/Main'
 const PostPage = () => {
     const router = useRouter()
     const { post_id } = router.query
-    const {post,loadPost,user,loadUser,comments,LoadComments}=useMainContext()
+    const {post,loadPost,user,loadUser,comments,loadComments}=useMainContext()
     
     useEffect(() => {
         if (!post_id) {

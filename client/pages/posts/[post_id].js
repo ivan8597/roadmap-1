@@ -13,7 +13,19 @@ const PostPage = () => {
     const { post, loadPost, user, loadUser, comments, loadComments, activeCommentsPage,
         setActiveCommentsPage,
         commentsPages } = useMainContext()
-
+        const crumbs=[{
+            title:"Home",
+            link:"/"
+        },
+        {
+            title:user?user.username:"",
+            link:user?`/users/${user._id}`:"",
+            
+        },
+        {
+            title:post?post.title:""
+        }
+        ]
     useEffect(() => {
         if (!post_id) {
             return
@@ -35,7 +47,7 @@ const PostPage = () => {
 
 
     return (
-        <MainLayout>
+        <MainLayout crumbs={crumbs}>
             <div className="row">
                 <div className="col-md-4">
                     <ArticleCard item={post} user={user} userLink={`/users/${user.id}`} />

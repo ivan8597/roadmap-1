@@ -1,7 +1,7 @@
 const  Pagination = ({activePage,setActivePage,pages}) => {
   return (
-      <>
-    <button onClick={
+      <div className="btn-group">
+    <button className="btn btn-outline-primary" onClick={
         ()=>{
           if(activePage<2){
             return
@@ -10,8 +10,8 @@ const  Pagination = ({activePage,setActivePage,pages}) => {
          
         }
       }>Left</button>
-     {activePage}/{pages}
-     <button onClick={
+     <span className="btn btn-outline-primary disabled">{activePage}/{pages}</span>
+     <button className="btn btn-outline-primary" onClick={
         ()=>{
           if(activePage>pages-1){
             return
@@ -20,7 +20,7 @@ const  Pagination = ({activePage,setActivePage,pages}) => {
     
         }
       }>Rigth</button>
-      </>
+      </div>
   )
 }
 

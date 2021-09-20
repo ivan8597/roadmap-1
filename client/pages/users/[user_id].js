@@ -32,10 +32,12 @@ const UserPage = () => {
                 <Avatar item={user}/>
                 </div>
                 <div className="col-md-4">
-                    <AboutCompany company={user.company}/>
+                    {!!user.company && <AboutCompany company={user.company}/> }
+                  
                 </div>
                 <div className="col-md-4">
-                    <AboutAddress address={user.address}/>
+                {!!user.address && <AboutAddress address={user.address}/> }
+                
                 </div>
             </div>
 

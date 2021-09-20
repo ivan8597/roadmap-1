@@ -14,6 +14,8 @@ export const MainProvider = ({ children }) => {
     const [userPages, setUserPages] = useState(1)
     const [activePostPage, setActivePostPage] = useState(1)
     const [postPages, setPostPages] = useState(1)
+    const [activeCommentsPage,setActiveCommentsPage]=useState(1)
+    const [commentsPages,setCommentsPages]=useState(1)
 
     const loadUsers=()=>{
         const limit=4
@@ -50,10 +52,13 @@ export const MainProvider = ({ children }) => {
         });
     }
     const loadComments=(post_id)=>{
-        fetch(`${API_URL}/comments?postId=${post_id}`)
+        const limit=4
+        const skip=(activeUserPage-1)*limit
+        fetch(`${API_URL}/comments?postId=${post_id}&skip=${skip}&limit=${limit}`)
             .then((res) => res.json())
             .then((data) => {
                 setComments(data.items);
+                setCommentsPages(Math.ceil(data.count/limit))
             });
     }
   const value = {
@@ -73,7 +78,10 @@ export const MainProvider = ({ children }) => {
       userPages,
       activePostPage,
       setActivePostPage,
-      postPages
+      postPages,
+      activeCommentsPage,
+      setActiveCommentsPage,
+      commentsPages
   };
   return <MainContext.Provider value={value}>{children}</MainContext.Provider>;
 };

@@ -4,14 +4,14 @@ import Link from "next/link"
 const MainLayout = ({ children, crumbs }) => {
   return (
 
-    <>
+    <div className="page">
       <Head>
         <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <title>Memico - Cinema Bootstrap HTML5 Template</title>
         {/* Bootstrap */}
-        <link href="/pattern/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+        {/* <link href="/pattern/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" /> */}
         {/* Animate.css */}
         <link href="/pattern/animate.css/animate.css" rel="stylesheet" type="text/css" />
         {/* Font Awesome iconic font */}
@@ -54,8 +54,8 @@ const MainLayout = ({ children, crumbs }) => {
         <p>Сделано  <a href="https://github.com/ivan8597">Ivan8597</a></p>
 
       </footer>
-    </>
+    </div>
 
   )
 }
-export default MainLayout
+export default MainLayout 

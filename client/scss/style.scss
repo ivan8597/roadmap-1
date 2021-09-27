@@ -1,5 +1,6 @@
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
 @import './blog.scss';
+@import './signin.scss';
 // .container{
 //     width: 970px;
 //     margin: 0 auto;
@@ -19,4 +20,12 @@
 }
 .entity-extra-title.green{
  color:green;
+}
+.page{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+main{
+ flex:1;
 }

@@ -18,7 +18,7 @@ const HeaderSection = () => {
                                 <path d="M21 21l-5.2-5.2" />
                             </svg>
                         </a>
-                        <a className="btn btn-sm btn-outline-secondary" href="#">Sign up</a>
+                        <Link href="/signin"><a className="btn btn-sm btn-outline-secondary" >Sign in</a></Link>
                     </div>
                 </div>
             </header>

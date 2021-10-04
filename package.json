@@ -11,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bootstrap": "^5.0.0-beta3"
+    "bcrypt": "^5.0.1",
+    "bootstrap": "^5.0.0-beta3",
+    "jsonwebtoken": "^8.5.1"
   }
 }

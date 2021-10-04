@@ -6,6 +6,7 @@ const PORT = 3001;
 const UserController=require('./controller/User')
 const PostController=require("./controller/Post")
 const CommentController=require("./controller/Comment")
+const AdminController=require("./controller/Admin")
 
 const cors = require('cors');
 app.use(cors());
@@ -19,6 +20,9 @@ app.get('/users/:id',UserController.getById );
 app.post('/users',UserController.create);
 app.put('/users/:id',UserController.update);
 app.delete('/users/:id',UserController.remove);
+
+/** ADMIN */
+app.post('/admin/login',AdminController.login )
 
 /** POSTS */
 app.get('/posts', PostController.list);

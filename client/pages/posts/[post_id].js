@@ -5,6 +5,7 @@ import ArticleCard from "../../components/cards/Article"
 import TostCard from "../../components/cards/Tost"
 import { useMainContext } from '../../components/context/Main'
 import Pagination from '../../components/nav/Pagination'
+import CommentForm from '../../components/comment/form'
 
 
 const PostPage = () => {
@@ -51,6 +52,7 @@ const PostPage = () => {
             <div className="row">
                 <div className="col-md-4">
                     <ArticleCard item={post} user={user} userLink={`/users/${user.id}`} />
+                    <CommentForm/>
                 </div>
                
                 <div className="col-md-8">

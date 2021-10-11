@@ -65,6 +65,7 @@ const PostPage = () => {
                             <TostCard item={comment} key={comment.id} />
                         );
                     })}
+                 
                 </div>
 
             </div>

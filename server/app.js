@@ -3,6 +3,7 @@ require('./model/mongo/db');
 const express = require('express');
 const app = express();
 const PORT = 3001;
+const AuthMiddleware=require('./middleware/Auth')
 const UserController=require('./controller/User')
 const PostController=require("./controller/Post")
 const CommentController=require("./controller/Comment")
@@ -12,7 +13,7 @@ const cors = require('cors');
 app.use(cors());
 app.use(express.static('public'));
 app.use(express.json())
-
+app.use(AuthMiddleware.userInfo)
 /** USERS */
 app.get('/users',UserController.list )
 
@@ -34,7 +35,7 @@ app.get('/posts/:id', PostController.getById);
 /** Comments */
 app.get('/comments', CommentController.list);
 app.post('/comments',CommentController.create)
-app.get('/comments/:id',CommentController.getById);
+app.get('/comments/:id', AuthMiddleware.isPrivate, CommentController.getById);
 app.put('/comments', CommentController.update);
 app.delete('/comments/:id', CommentController.remove);
 

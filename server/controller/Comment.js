@@ -19,6 +19,7 @@ const list = async (req, res, next) => {
 
 const getById = async (req, res,next) => {
     try {
+       
         res.json({
             item: await Comment.findById(req.params.id )
         }) 

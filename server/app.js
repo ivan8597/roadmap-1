@@ -21,6 +21,7 @@ app.get('/users/:id',UserController.getById );
 app.post('/users',UserController.create);
 app.put('/users/:id',UserController.update);
 app.delete('/users/:id',UserController.remove);
+app.post('/users/login',UserController.login)
 
 /** ADMIN */
 app.post('/admin/login',AdminController.login )

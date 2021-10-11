@@ -33,13 +33,15 @@ const login = async (req, res, next) => {
     const token = jwt.sign(
       {
         exp: Math.floor(cookieExp / 1000),
-        data: { id: admin._id },
+        data: { id: admin._id, role: admin.role },
       },
       JWT_SECRET
     );
 
     res.json({
-      success: true,
+      id: admin._id,
+      email: admin.email,
+      role: admin.role,
       expires: Math.floor(cookieExp / 1000),
       token,
     });

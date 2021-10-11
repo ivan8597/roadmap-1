@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+const { ROLE_ADMIN, ROLE_GUEST, ROLE_USER } = require('../../config')
 const CompanySchema = new Schema({
     name: String,
     catchPhrase: String,
@@ -23,6 +25,7 @@ const AddressSchema = new Schema({
 });
 
 
+
 const UserSchema = new Schema({
    
     name: {
@@ -35,9 +38,24 @@ const UserSchema = new Schema({
     address:AddressSchema,
     phone: String,
     website:String,
-    company:CompanySchema
+    company:CompanySchema,
+    role: {
+        type: Number,
+        default: ROLE_USER,
+      },
+      password: {
+        type: String,
+      },
 });
-
+UserSchema.statics = {
+    ROLE_ADMIN,
+    ROLE_GUEST,
+    ROLE_USER,
+    hash: function (password) {
+      return bcrypt.hashSync(password, saltRounds);
+    },
+  };
+  
 
 
 

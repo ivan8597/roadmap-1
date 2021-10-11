@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const { USER_ID, USER_EMAIL, USER_PASSWORD } = require('../../config');
+const { USER_ID, USER_EMAIL, USER_PASSWORD,ROLE_ADMIN } = require('../../config');
 
 const Admin = {
   findOne: (params) => {
@@ -17,6 +17,7 @@ const Admin = {
     return {
       _id: USER_ID,
       email: USER_EMAIL,
+      role:ROLE_ADMIN,
       password: bcrypt.hashSync(USER_PASSWORD, saltRounds),
     };
   },

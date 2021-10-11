@@ -1,5 +1,15 @@
 const User = require('../model/mongo/User')
 const Post = require('../model/mongo/Post')
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+const { JWT_SECRET } = require('../config');
+const EXPIRES = 7 * 24 * 3600000;
+const _sendError = (message = 'Invalid email/password!!!', status = 400) => {
+    const err = new Error(message);
+    err.statusCode = status;
+    throw err;
+  };
 const list = async (req, res, next) => {
     try {
         const { skip = 0, limit = 10 } = req.query
@@ -25,6 +35,7 @@ const getById = async (req, res, next) => {
 const create = async (req, res, next) => {
     try {
         const user = new User(req.body)
+        user.password = User.hash(req.body.password)
         await user.save()
 
         res.json({
@@ -70,10 +81,51 @@ const remove = async (req,res, next) => {
     }
 
 }
+const login = async (req, res, next) => {
+    try {
+      const { email, password } = req.body;
+      if (!email || !password) {
+        return _sendError();
+      }
+  
+      const user = await User.findOne({ email });
+  
+      if (!user) {
+        return _sendError();
+      }
+  
+      if (!bcrypt.compareSync(password, user.password)) {
+        return _sendError();
+      }
+  
+      const cookieExp = Date.now() + EXPIRES;
+  
+      const token = jwt.sign(
+        {
+          exp: Math.floor(cookieExp / 1000),
+          data: { id: user._id, role: user.role },
+        },
+        JWT_SECRET
+      );
+  
+      res.json({
+        success: true,
+        id: user._id,
+        email: user.email,
+        role: user.role,
+        expires: Math.floor(cookieExp / 1000),
+        token,
+      });
+    } catch (error) {
+        next(error)
+    }
+
+}
 module.exports = {
     list,
     getById,
     create,
     update,
-    remove
+    remove,
+    login,
 }

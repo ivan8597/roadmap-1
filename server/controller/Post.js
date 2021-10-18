@@ -29,7 +29,7 @@ const getById = async (req, res, next) => {
 }
 const create = async (req, res, next) => {
     try {
-        const post = new Post(req.body)
+        const post = new Post({...req.body,userId:req.userId })
         await post.save()
 
         res.json({
@@ -45,7 +45,7 @@ const update = async (req, res, next) => {
         const data=req.body
         delete data._id
         delete data.userId
-        const post=await Post.findByIdAndUpdate(req.params.id, data, {new:true})
+        const post=await Post.findOneAndUpdate({_id:req.params.id,userId:req.userId}, data, {new:true})
        
 
         res.json({
@@ -58,7 +58,12 @@ const update = async (req, res, next) => {
 }
 const remove = async (req,res, next) => {
     try {
-        
+        const prevPost=await Post.findOne({     
+            _id:req.params.id, userId:req.userId
+        })
+        if(!prevPost){
+            return res.json({item:null })
+        }
         const comments=await Comment.find({postId:req.params.id})
         if(comments.length){
             const error=new Error("Access denied. Need to remove comments")

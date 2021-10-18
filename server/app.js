@@ -10,6 +10,7 @@ const CommentController=require("./controller/Comment")
 const AdminController=require("./controller/Admin")
 
 const cors = require('cors');
+const { ROLE_USER } = require('./config');
 app.use(cors());
 app.use(express.static('public'));
 app.use(express.json())
@@ -28,9 +29,9 @@ app.post('/admin/login',AdminController.login )
 
 /** POSTS */
 app.get('/posts', PostController.list);
-app.post('/posts',PostController.create);
-app.put('/posts/:id',PostController.update);
-app.delete('/posts/:id', PostController.remove);
+app.post('/posts',AuthMiddleware.isPrivate,PostController.create);
+app.put('/posts/:id',AuthMiddleware.accessByRole(ROLE_USER),PostController.update);
+app.delete('/posts/:id', AuthMiddleware.isPrivate,PostController.remove);
 
 app.get('/posts/:id', PostController.getById);
 /** Comments */

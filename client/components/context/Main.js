@@ -53,13 +53,30 @@ export const MainProvider = ({ children }) => {
     }
     const loadComments=(post_id)=>{
         const limit=4
-        const skip=(activeUserPage-1)*limit
+        const skip=(activeCommentsPage-1)*limit
         fetch(`${API_URL}/comments?postId=${post_id}&skip=${skip}&limit=${limit}`)
             .then((res) => res.json())
             .then((data) => {
                 setComments(data.items);
                 setCommentsPages(Math.ceil(data.count/limit))
             });
+    }
+    const addComment=({email,name,body,postId})=>{
+        fetch(`${API_URL}/comments`, {
+            method:"POST",
+            headers:{
+             "Content-Type":"application/json"
+            },
+            body: JSON.stringify({email,name,body,postId})
+            
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            if(data.item){
+                loadComments(postId)
+            }
+            // setPost(data.item);
+        });
     }
   const value = {
       users,
@@ -72,7 +89,7 @@ export const MainProvider = ({ children }) => {
       loadPost,
       comments,
       loadComments,
-
+       addComment,
       activeUserPage,
       setActiveUserPage,
       userPages,

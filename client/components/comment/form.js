@@ -1,7 +1,20 @@
 import Link from "next/link";
-const CommentForm = () => {
+import { useState } from "react";
+import { useMainContext } from "../context/Main";
+import { useUserContext } from "../context/User";
+const CommentForm = ({postId}) => {
+    const {user}=useUserContext()
+    const[name,setName]=useState('')
+    const[body,setBody]=useState('')
+    const[email,setEmail]=useState(user.email || "")
+    const{addComment}=useMainContext()
     return (
-        <div className="formpage">
+        <form  onSubmit={(e)=>{
+            e.preventDefault()
+            addComment({email,name,body,postId})
+            setName('')
+            setBody('')
+        }}className="formpage">
             <div className="mb-3">
                 <label htmlFor="exampleFormControlInput1" className="form-label">
                     Email address
@@ -11,6 +24,10 @@ const CommentForm = () => {
                     className="form-control"
                     id="exampleFormControlInput1"
                     placeholder="name@example.com"
+                    onChange={(e)=>{
+                     setEmail(e.target.value)
+                    }}
+                    value={email}
                 />
             </div>
             <div className="mb-3">
@@ -22,6 +39,10 @@ const CommentForm = () => {
                     className="form-control"
                     id="exampleFormControlInput2"
                     placeholder=""
+                    onChange={(e)=>{
+                        setName(e.target.value)
+                       }}
+                       value={name}
                 />
             </div>
             <div className="mb-3">
@@ -33,13 +54,18 @@ const CommentForm = () => {
                     id="exampleFormControlTextarea1"
                     rows={3}
                     defaultValue={""}
+                    onChange={(e)=>{
+                        setBody(e.target.value)
+                       }}
+                       value={body}
+                       
                 />
             </div>
             <button className="w-100 btn btn-lg btn-primary" type="submit">
            Add Comment
             </button>
            
-        </div>
+        </form>
 
     )
 }

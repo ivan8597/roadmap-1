@@ -1,4 +1,7 @@
+import { useUserContext } from "../context/User";
+
 const EditProfile = () => {
+  const {user}=useUserContext()
   return (
     <form className="needs-validation" noValidate>
   <div className="row g-3">
@@ -55,6 +58,8 @@ const EditProfile = () => {
         className="form-control"
         id="email"
         placeholder="you@example.com"
+        value={user.email}
+        disabled
       />
       <div className="invalid-feedback">
         Please enter a valid email address for shipping updates.

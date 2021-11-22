@@ -14,26 +14,26 @@ const PostPage = () => {
     const { post, loadPost, user, loadUser, comments, loadComments, activeCommentsPage,
         setActiveCommentsPage,
         commentsPages } = useMainContext()
-        const crumbs=[{
-            title:"Home",
-            link:"/"
-        },
-        {
-            title:user?user.username:"",
-            link:user?`/users/${user._id}`:"",
-            
-        },
-        {
-            title:post?post.title:""
-        }
-        ]
+    const crumbs = [{
+        title: "Home",
+        link: "/"
+    },
+    {
+        title: user ? user.username : "",
+        link: user ? `/users/${user._id}` : "",
+
+    },
+    {
+        title: post ? post.title : ""
+    }
+    ]
     useEffect(() => {
         if (!post_id) {
             return
         }
         loadComments(post_id)
         loadPost(post_id)
-    }, [post_id,activeCommentsPage]);
+    }, [post_id, activeCommentsPage]);
 
     useEffect(() => {
         if (!post) {
@@ -52,20 +52,20 @@ const PostPage = () => {
             <div className="row">
                 <div className="col-md-4">
                     <ArticleCard item={post} user={user} userLink={`/users/${user.id}`} />
-                    <CommentForm/>
+                    <CommentForm postId={post_id}/>
                 </div>
-               
+
                 <div className="col-md-8">
-                <Pagination activePage={activeCommentsPage}
-                    setActivePage={setActiveCommentsPage}
-                    pages={commentsPages}
-                />
+                    <Pagination activePage={activeCommentsPage}
+                        setActivePage={setActiveCommentsPage}
+                        pages={commentsPages}
+                    />
                     {comments.map((comment) => {
                         return (
                             <TostCard item={comment} key={comment.id} />
                         );
                     })}
-                 
+
                 </div>
 
             </div>

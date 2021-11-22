@@ -1,13 +1,30 @@
+import {useRouter} from "next/router";
+import { useUserContext } from "../../components/context/User";
 import MainLayout from "../../components/layouts/Main";
 import EditProfile from "../../components/profile/edit";
 
 const ProfilePage = () => {
-  return (
-    <MainLayout>
+  const{user,logout}=useUserContext()
+  
+  const router=useRouter()
+  if(user.loading){
+    return <MainLayout>Loading...</MainLayout>
+  }
+  if(!user.token){
+    router.push("/signin")
+    return <MainLayout>Loading...</MainLayout>
+  }
+  return (<MainLayout>
+    
         <div className="row ">
-         <div className="col-md-3">Edit Profile</div>
+         <div className="col-md-3">
+           <div>Edit Profile</div>
+           <div><button onClick={
+             logout
+           } className="btn btn-info">Logout</button></div>
+           </div>
          <div className="col-md-9">
-             <EditProfile/>
+             <EditProfile />
          </div>
         </div>
         

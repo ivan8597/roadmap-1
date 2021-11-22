@@ -1,5 +1,7 @@
 import Link from "next/link"
+import { useUserContext } from "../context/User"
 const HeaderSection = () => {
+    const {user}=useUserContext()
     return (
         <>
             <header className="blog-header py-3">
@@ -18,7 +20,12 @@ const HeaderSection = () => {
                                 <path d="M21 21l-5.2-5.2" />
                             </svg>
                         </a>
-                        <Link href="/signin"><a className="btn btn-sm btn-outline-secondary" >Sign in</a></Link>
+                        {
+                            user.token? 
+                             <Link href="/user/profile"><a className="btn btn-sm btn-outline-secondary" >{user.name || user.email}</a></Link>: 
+                             <Link href="/signin"><a className="btn btn-sm btn-outline-secondary" >Sign in </a></Link>
+                        }
+                       
                     </div>
                 </div>
             </header>

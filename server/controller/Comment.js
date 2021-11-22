@@ -9,7 +9,9 @@ const list = async (req, res, next) => {
         }
         res.json({
             count: await Comment.countDocuments(criteria),
-            items: await Comment.find(criteria).skip(parseInt(skip)).limit(parseInt(limit))
+            items: await Comment.find(criteria).skip(parseInt(skip)).limit(parseInt(limit)).sort({
+                _id:-1
+            })
         })
     } catch (error) {
      next(error)

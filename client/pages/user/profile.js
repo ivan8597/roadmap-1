@@ -2,6 +2,7 @@ import {useRouter} from "next/router";
 import { useUserContext } from "../../components/context/User";
 import MainLayout from "../../components/layouts/Main";
 import EditProfile from "../../components/profile/edit";
+import Link from "next/link";
 
 const ProfilePage = () => {
   const{user,logout}=useUserContext()
@@ -18,7 +19,8 @@ const ProfilePage = () => {
     
         <div className="row ">
          <div className="col-md-3">
-           <div>Edit Profile</div>
+           <div className="mb-3">Edit Profile</div>
+           <div className="mb-3"> <Link href={`/users/${user.id}`}><a>My Page</a></Link></div>
            <div><button onClick={
              logout
            } className="btn btn-info">Logout</button></div>

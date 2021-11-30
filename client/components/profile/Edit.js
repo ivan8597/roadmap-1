@@ -1,9 +1,16 @@
+import { useState } from "react";
 import { useUserContext } from "../context/User";
 
 const EditProfile = () => {
-  const {user}=useUserContext()
+  const {user,updateUser}=useUserContext()
+  const[name,setName]=useState(user.name)
+  const[lastname,setLastname]=useState(user.lastname)
+  const[username,setUsername]=useState(user.username)
   return (
-    <form className="needs-validation" noValidate>
+    <form onSubmit={(e)=>{
+   e.preventDefault()
+   updateUser({name,lastname,username})
+    }} className="needs-validation" noValidate>
   <div className="row g-3">
     <div className="col-sm-6">
       <label htmlFor="firstName" className="form-label">
@@ -13,9 +20,10 @@ const EditProfile = () => {
         type="text"
         className="form-control"
         id="firstName"
-        placeholder
-        defaultValue
-        required
+        onChange={(e)=>{
+       setName( e.target.value)
+        }}
+        value={name}
       />
       <div className="invalid-feedback">Valid first name is required.</div>
     </div>
@@ -27,9 +35,10 @@ const EditProfile = () => {
         type="text"
         className="form-control"
         id="lastName"
-        placeholder
-        defaultValue
-        required
+        onChange={(e)=>{
+        setLastname(e.target.value)
+        }}
+        value={lastname}
       />
       <div className="invalid-feedback">Valid last name is required.</div>
     </div>
@@ -43,8 +52,11 @@ const EditProfile = () => {
           type="text"
           className="form-control"
           id="username"
-          placeholder="Username"
-          required
+         
+          onChange={(e)=>{
+            setUsername(e.target.value)
+            }}
+            value={username}
         />
         <div className="invalid-feedback">Your username is required.</div>
       </div>
@@ -68,7 +80,7 @@ const EditProfile = () => {
     </div>
    <hr className="my-4" />
   <button className="w-100 btn btn-primary btn-lg" type="submit">
-    Continue to checkout
+    Save
   </button>
 </form>
 

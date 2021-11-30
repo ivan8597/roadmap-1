@@ -22,7 +22,7 @@ const HeaderSection = () => {
                         </a>
                         {
                             user.token? 
-                             <Link href="/user/profile"><a className="btn btn-sm btn-outline-secondary" >{user.name || user.email}</a></Link>: 
+                             <Link href="/user/profile"><a className="btn btn-sm btn-outline-secondary" >{user.username || user.email}</a></Link>: 
                              <Link href="/signin"><a className="btn btn-sm btn-outline-secondary" >Sign in </a></Link>
                         }
                        

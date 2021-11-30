@@ -4,58 +4,61 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const { ROLE_ADMIN, ROLE_GUEST, ROLE_USER } = require('../../config')
 const CompanySchema = new Schema({
-    name: String,
-    catchPhrase: String,
-    bs: String,
-    
+  name: String,
+  catchPhrase: String,
+  bs: String,
+
 });
 
 const GeoSchema = new Schema({
-    lat: Number,
-    lng: Number,
-    
+  lat: Number,
+  lng: Number,
+
 });
 
 const AddressSchema = new Schema({
-    street: String,
-    suite: String,
-    city: String,
-    zipcode: String,
-    geo:GeoSchema
+  street: String,
+  suite: String,
+  city: String,
+  zipcode: String,
+  geo: GeoSchema
 });
 
 
 
 const UserSchema = new Schema({
-   
-    name: {
-         type: String, required: true
-    },
-    username: String,
-    email:{
-        type: String, required:true, unique:true
-    } ,
-    address:AddressSchema,
-    phone: String,
-    website:String,
-    company:CompanySchema,
-    role: {
-        type: Number,
-        default: ROLE_USER,
-      },
-      password: {
-        type: String,
-      },
+
+  name: {
+    type: String,
+  },
+  lastname: {
+    type: String,
+  },
+  username: String,
+  email: {
+    type: String, required: true, unique: true
+  },
+  address: AddressSchema,
+  phone: String,
+  website: String,
+  company: CompanySchema,
+  role: {
+    type: Number,
+    default: ROLE_USER,
+  },
+  password: {
+    type: String,
+  },
 });
 UserSchema.statics = {
-    ROLE_ADMIN,
-    ROLE_GUEST,
-    ROLE_USER,
-    hash: function (password) {
-      return bcrypt.hashSync(password, saltRounds);
-    },
-  };
-  
+  ROLE_ADMIN,
+  ROLE_GUEST,
+  ROLE_USER,
+  hash: function (password) {
+    return bcrypt.hashSync(password, saltRounds);
+  },
+};
+
 
 
 

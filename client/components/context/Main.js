@@ -1,9 +1,11 @@
 import { createContext, useContext } from 'react';
 import {  useState } from "react"
+import {useUserContext} from "../context/User"
 const MainContext = createContext();
 const API_URL = "http://localhost:3001"
 
 export const MainProvider = ({ children }) => {
+    const {user:authUser}=useUserContext()
     const [users, setUsers] = useState([])
     const [user, setUser] = useState(null)
     const [posts, setPosts] = useState([])
@@ -44,6 +46,25 @@ export const MainProvider = ({ children }) => {
             setPostPages(Math.ceil(data.count/limit))
         });
     }
+    const addPost=({body,title})=>{
+        fetch(`${API_URL}/posts`, {
+            method:"POST",
+            headers:{
+             "Content-Type":"application/json",
+             "Authorization": `Bearer ${authUser.token}`
+
+            },
+            body: JSON.stringify({body,title})
+            
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            if(data.item){
+                loadPosts(authUser.id)
+            }
+            // setPost(data.item);
+        });
+    }
     const loadPost=(post_id)=>{
         fetch(`${API_URL}/posts/${post_id}`)
         .then((res) => res.json())
@@ -61,6 +82,7 @@ export const MainProvider = ({ children }) => {
                 setCommentsPages(Math.ceil(data.count/limit))
             });
     }
+
     const addComment=({email,name,body,postId})=>{
         fetch(`${API_URL}/comments`, {
             method:"POST",
@@ -87,6 +109,7 @@ export const MainProvider = ({ children }) => {
       loadPosts,
       post,
       loadPost,
+      addPost,
       comments,
       loadComments,
        addComment,

@@ -30,3 +30,37 @@
 main{
  flex:1;
 }
+.overlay{
+ position: fixed;
+ width: 100vw;
+ height: 100vh;
+ top:0;
+ left:0;
+ background-color: rgba(0,0,0,0.3);
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ z-index: 1;
+}
+.popup{
+    position: relative;
+width: 290px;
+padding: 19px 19px;
+background-color: white;
+
+}
+.close-btn{
+    width: 49px;
+    height: 49px;
+position: absolute;
+top:-19px;
+right: -19px ;
+border-radius: 50%;
+border: 1px solid orange;
+background-color: white;
+display: flex;
+ justify-content: center;
+ align-items: center;
+ cursor: pointer;
+ font-size: 29px;
+}

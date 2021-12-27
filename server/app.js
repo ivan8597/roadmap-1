@@ -14,8 +14,8 @@ const FileController=require("./controller/File")
 
 const cors = require('cors');
 const { ROLE_USER, ROLE_ADMIN } = require('./config');
-app.use("/uploads",express.static("uploads"))
 app.use(cors());
+app.use("/uploads",express.static("uploads"))
 app.use(express.static('public'));
 app.use(express.json())
 app.use(AuthMiddleware.userInfo)

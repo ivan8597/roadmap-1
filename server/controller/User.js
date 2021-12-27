@@ -1,5 +1,6 @@
 const User = require('../model/mongo/User')
 const Post = require('../model/mongo/Post')
+const File = require('../model/mongo/File')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -9,7 +10,7 @@ const _sendError = (message = 'Invalid email/password!!!', status = 400) => {
     const err = new Error(message);
     err.statusCode = status;
     throw err;
-  };
+};
 const list = async (req, res, next) => {
     try {
         const { skip = 0, limit = 10 } = req.query
@@ -24,8 +25,15 @@ const list = async (req, res, next) => {
 }
 const getById = async (req, res, next) => {
     try {
+        const user=await User.findById(req.params.id)
+        let avatar = null
+        if (user.avatarId) {
+            avatar = await File.findById(user.avatarId)
+        }
+
         res.json({
-            item: await User.findById(req.params.id )
+            item: user,
+            avatar: avatar
         })
     } catch (error) {
         next(error)
@@ -48,31 +56,35 @@ const create = async (req, res, next) => {
 }
 const update = async (req, res, next) => {
     try {
-        const data=req.body
+        const data = req.body
         delete data._id
         delete data.email
-        const user=await User.findByIdAndUpdate(req.params.id, data, {new:true})
-       
+        const user = await User.findByIdAndUpdate(req.params.id, data, { new: true })
+        let avatar = null
+        if (user.avatarId) {
+            avatar = await File.findById(user.avatarId)
+        }
 
         res.json({
-            item: user
+            item: user,
+            avatar: avatar
         })
     } catch (error) {
         next(error)
     }
 
 }
-const remove = async (req,res, next) => {
+const remove = async (req, res, next) => {
     try {
-        const posts=await Post.find({userId:req.params.id})
-        if(posts.length){
-            
-            const error=new Error("Access denied. Need to remove posts")
-            error.statusCode="403"
+        const posts = await Post.find({ userId: req.params.id })
+        if (posts.length) {
+
+            const error = new Error("Access denied. Need to remove posts")
+            error.statusCode = "403"
             throw error
-            
+
         }
-        const user=await User.findByIdAndDelete(req.params.id)
+        const user = await User.findByIdAndDelete(req.params.id)
         res.json({
             item: user
         })
@@ -83,42 +95,46 @@ const remove = async (req,res, next) => {
 }
 const login = async (req, res, next) => {
     try {
-      const { email, password } = req.body;
-      if (!email || !password) {
-        return _sendError();
-      }
-  
-      const user = await User.findOne({ email });
-  
-      if (!user) {
-        return _sendError();
-      }
-  
-      if (!bcrypt.compareSync(password, user.password)) {
-        return _sendError();
-      }
-  
-      const cookieExp = Date.now() + EXPIRES;
-  
-      const token = jwt.sign(
-        {
-          exp: Math.floor(cookieExp / 1000),
-          data: { id: user._id, role: user.role },
-        },
-        JWT_SECRET
-      );
-  
-      res.json({
-        success: true,
-        id: user._id,
-        email: user.email,
-        name:user.name,
-        lastname:user.lastname,
-        user:user.username,
-        role: user.role,
-        expires: Math.floor(cookieExp / 1000),
-        token,
-      });
+        const { email, password } = req.body;
+        if (!email || !password) {
+            return _sendError();
+        }
+
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return _sendError();
+        }
+
+        if (!bcrypt.compareSync(password, user.password)) {
+            return _sendError();
+        }
+
+        const cookieExp = Date.now() + EXPIRES;
+
+        const token = jwt.sign(
+            {
+                exp: Math.floor(cookieExp / 1000),
+                data: { id: user._id, role: user.role },
+            },
+            JWT_SECRET
+        );
+        let avatar=null
+        if(user.avatarId){
+          avatar=await File.findById(user.avatarId)
+        }
+        res.json({
+            success: true,
+            id: user._id,
+            email: user.email,
+            name: user.name,
+            lastname: user.lastname,
+            user: user.username,
+            role: user.role,
+            expires: Math.floor(cookieExp / 1000),
+            token,
+            avatar: avatar
+        });
     } catch (error) {
         next(error)
     }

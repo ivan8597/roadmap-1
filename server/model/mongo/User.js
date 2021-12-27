@@ -49,7 +49,10 @@ const UserSchema = new Schema({
   password: {
     type: String,
   },
-});
+  avatarId: {
+    type: Schema.Types.ObjectId,
+  }
+}, {timestamps:true});
 UserSchema.statics = {
   ROLE_ADMIN,
   ROLE_GUEST,

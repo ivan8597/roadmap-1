@@ -21,8 +21,8 @@ const MainLayout = ({ children, crumbs }) => {
         {/* Slick carousel */}
         <link href="/pattern/slick/slick.css" rel="stylesheet" type="text/css" />
         {/* Fonts */}
-        <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,700" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" type="text/css" />
+        {/* <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" type="text/css" /> */}
         {/* Theme styles */}
         <link href="/pattern/css/dot-icons.css" rel="stylesheet" type="text/css" />
         <link href="/pattern/css/theme.css" rel="stylesheet" type="text/css" />

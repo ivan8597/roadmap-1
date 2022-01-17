@@ -68,3 +68,9 @@ display: flex;
     height: 49px;
     margin-right: 9px;
 }
+.file-item{
+    max-width: 100%;
+}
+.file-item.active{
+    border: 1px solid yellow;
+}

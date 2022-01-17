@@ -49,31 +49,50 @@ export const UserProvider = ({ children }) => {
         })
     }
 
-    const updateUser = ({ name,lastname,username }) => {
+    const updateUser = ( params ) => {
         fetch(`${API_URL}/users/${user.id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${user.token}`
             },
-            body: JSON.stringify({ name,lastname,username })
+            body: JSON.stringify(params)
 
         }).then((res) => {
             return res.json()
         }).then((data) => {
             if (data.item) {
-                const{name,lastname,username}=data.item
-                localSaveUser({ ...user, name,lastname,username  })
-                setUser({ ...user, name,lastname,username })
+            
+                localSaveUser({ ...user, ...data.item,avatar:data.avatar })
+                setUser({ ...user, ...data.item,avatar:data.avatar })
             }
         })
     }
+    const uploadAvatar = (file) => {
 
+        var formdata = new FormData();
+        formdata.append("file", file);
+        fetch(`${API_URL}/files/upload`, {
+            method: 'POST',
+            headers: {
+                "Authorization": `Bearer ${user.token}`
+            },
+            body: formdata,
+
+        })
+            .then(res => res.json())
+            .then(data => {
+                updateUser({
+                    avatarId:data.item._id
+                })
+            })
+    }
     const value = {
         user,
         login,
         logout,
-        updateUser
+        updateUser,
+        uploadAvatar
     }
     return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }

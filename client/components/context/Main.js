@@ -11,7 +11,7 @@ export const MainProvider = ({ children }) => {
     const [posts, setPosts] = useState([])
     const [post, setPost] = useState(null)
     const [comments, setComments] = useState([])
-
+    const [files, setFiles] = useState([])
     const [activeUserPage, setActiveUserPage] = useState(1)
     const [userPages, setUserPages] = useState(1)
     const [activePostPage, setActivePostPage] = useState(1)
@@ -100,6 +100,23 @@ export const MainProvider = ({ children }) => {
             // setPost(data.item);
         });
     }
+    const loadFiles=()=>{
+        fetch(`${API_URL}/files`, {
+            headers:{
+             "Content-Type":"application/json",
+             "Authorization": `Bearer ${authUser.token}`,
+            },
+         
+            
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            if(data.items){
+                setFiles(data.items)
+            }
+
+        });
+    }
   const value = {
       users,
       loadUsers,
@@ -121,7 +138,9 @@ export const MainProvider = ({ children }) => {
       postPages,
       activeCommentsPage,
       setActiveCommentsPage,
-      commentsPages
+      commentsPages,
+      files,
+      loadFiles
   };
   return <MainContext.Provider value={value}>{children}</MainContext.Provider>;
 };

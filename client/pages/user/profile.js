@@ -4,6 +4,7 @@ import MainLayout from "../../components/layouts/Main";
 import EditProfile from "../../components/profile/edit";
 import Link from "next/link";
 import { useState } from "react";
+import ProfileAvatar from "../../components/profile/Avatar";
 
 const ProfilePage = () => {
   const{user,logout}=useUserContext()
@@ -29,7 +30,7 @@ const ProfilePage = () => {
            </div>
          <div className="col-md-9">
              {tab==='profile' && < EditProfile />}
-             {tab==='avatar' && "avatar"}
+             {tab==='avatar' && <ProfileAvatar/>}
          </div>
         </div>
         

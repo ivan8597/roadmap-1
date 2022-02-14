@@ -12,12 +12,13 @@ import { useUserContext } from '../../components/context/User'
 
 const UserPage = () => {
     const router = useRouter()
-    const{user:authUser}=useUserContext()
-    const [showpopup, setShowpopup]=useState(false)
+    const[editedPost,setEditedPost]=useState(null)
+    const { user: authUser } = useUserContext()
+    const [showpopup, setShowpopup] = useState(false)
     const { user_id } = router.query
     const { user, loadUser, posts, loadPosts, activePostPage,
         setActivePostPage,
-        postPages } = useMainContext()
+        postPages,removePost } = useMainContext()
     const crumbs = [{
         title: "Home",
         link: "/"
@@ -26,7 +27,7 @@ const UserPage = () => {
         title: user ? user.username : ""
     }
     ]
-    const isOwner=user_id===authUser.id
+    const isOwner = user_id === authUser.id
 
 
 
@@ -41,6 +42,7 @@ const UserPage = () => {
     if (!user) {
         return "loading"
     }
+    console.log(posts)
     return (
         <MainLayout crumbs={crumbs}>
 
@@ -58,12 +60,12 @@ const UserPage = () => {
                 </div>
             </div>
             {
-                isOwner && <button onClick={()=>{
+                isOwner && <button onClick={() => {
                     setShowpopup(true)
                 }} className='btn btn-primary'>Create post</button>
-   
+
             }
-             
+
 
             <Pagination
                 activePage={activePostPage}
@@ -71,22 +73,29 @@ const UserPage = () => {
                 pages={postPages}
             />
             <div className="row">
-                {posts.map((post,i) => {
+                {posts.map((post, i) => {
                     return (
                         <div key={post.id} className="col-md-6 ">
 
-                            <PostCard item={post} link={`/posts/${post._id}`} 
-                            id={posts.length-i}
-                            upDateHandler={()=>{
-                                setShowpopup(true)
-                            }}
-                            isOwner={isOwner}/>
+                            <PostCard item={post} link={`/posts/${post._id}`}
+                                id={posts.length - i}
+                                upDateHandler={() => {
+                                    setShowpopup(true)
+                                    setEditedPost(post)
+                                }}
+                                deleteHandler={()=>{
+                                    if(confirm("Вы уверены?")){
+                                        removePost(post._id)
+                                    }
+                                
+                                }}
+                                isOwner={isOwner} />
                         </div>
                     );
                 })}
             </div>
             {
-             showpopup && <PostPopup close={()=>{setShowpopup(false)}}/>
+                showpopup && <PostPopup close={() => { setShowpopup(false); setEditedPost(null)}} post={editedPost} />
             }
         </MainLayout>
 

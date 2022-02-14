@@ -6,10 +6,7 @@ import FilesGrid from "../files/Grid";
 
 const ProfileAvatar = () => {
     const { uploadAvatar, updateUser, user } = useUserContext()
-    const { files, loadFiles } = useMainContext()
-    useEffect(() => {
-        loadFiles()
-    }, [])
+    
     return (
         <><form>
             <div className="form-file">
@@ -31,7 +28,7 @@ const ProfileAvatar = () => {
                 updateUser({
                     avatarId: id
                 })
-            }} files={files} />
+            }}  />
         </>
     )
 }

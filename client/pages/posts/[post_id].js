@@ -6,12 +6,12 @@ import TostCard from "../../components/cards/Tost"
 import { useMainContext } from '../../components/context/Main'
 import Pagination from '../../components/nav/Pagination'
 import CommentForm from '../../components/comment/form'
-
+import { STORAGE_URL } from '../../config'
 
 const PostPage = () => {
     const router = useRouter()
     const { post_id } = router.query
-    const { post, loadPost, user, loadUser, comments, loadComments, activeCommentsPage,
+    const { post,image, loadPost, user, loadUser, comments, loadComments, activeCommentsPage,
         setActiveCommentsPage,
         commentsPages } = useMainContext()
     const crumbs = [{
@@ -51,6 +51,7 @@ const PostPage = () => {
         <MainLayout crumbs={crumbs}>
             <div className="row">
                 <div className="col-md-4">
+                {!!image && <img className="post-image" src={`${STORAGE_URL}/${image.path}`}/>}
                     <ArticleCard item={post} user={user} userLink={`/users/${user.id}`} />
                     <CommentForm postId={post_id}/>
                 </div>

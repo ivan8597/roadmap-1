@@ -37,6 +37,7 @@ app.post('/posts',AuthMiddleware.isPrivate,PostController.create);
 app.put('/posts/:id',AuthMiddleware.isPrivate,PostController.update);
 app.delete('/posts/:id', AuthMiddleware.isPrivate,PostController.remove);
 
+
 app.get('/posts/:id', PostController.getById);
 /** Comments */
 app.get('/comments', CommentController.list);

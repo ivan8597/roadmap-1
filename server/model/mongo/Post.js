@@ -10,7 +10,9 @@ const PostSchema = new Schema({
         type: String,
         required: true
     },
-
+    fileId: {
+        type: Schema.Types.ObjectId,
+      },
     body:
     {
         type: String,

@@ -1,5 +1,6 @@
 const Post = require("../model/mongo/Post")
 const Comment = require("../model/mongo/Comment")
+const File = require("../model/mongo/File")
 const list = async (req, res, next) => {
     try {
         const { skip = 0, limit = 10 } = req.query
@@ -8,11 +9,19 @@ const list = async (req, res, next) => {
         if (userId) {
             criteria.userId = userId
         }
+        const posts= await Post.find(criteria).skip(parseInt(skip)).limit(parseInt(limit)).sort({ _id: -1})
+        const fileIds=[]
+        for(let post of posts){
+            if(post.fileId){
+                fileIds.push(post.fileId)
+            }
+        }
+        const files=await File.find({_id:{$in:fileIds}})
         res.json({
             count: await Post.countDocuments(criteria),
-            items: await Post.find(criteria).skip(parseInt(skip)).limit(parseInt(limit)).sort({
-            _id: -1
-            })
+            items: posts,
+            files:files
+
         })
     } catch (error) {
         next(error)
@@ -21,9 +30,16 @@ const list = async (req, res, next) => {
 }
 const getById = async (req, res, next) => {
     try {
-        res.json({
-            item: await Post.findById( req.params.id )
-        })
+        const post=await Post.findById( req.params.id )
+        let image=null
+
+        if(post.fileId){
+            image=await File.findById(post.fileId)
+        }
+       res.json({
+           item: post,
+           image:image
+       })
     } catch (error) {
         next(error)
     }
@@ -49,9 +65,14 @@ const update = async (req, res, next) => {
         delete data.userId
         const post=await Post.findOneAndUpdate({_id:req.params.id,userId:req.userId}, data, {new:true})
        
+         let image=null
 
+         if(post.fileId){
+             image=await File.findById(post.fileId)
+         }
         res.json({
-            item: post
+            item: post,
+            image:image
         })
     } catch (error) {
         next(error)

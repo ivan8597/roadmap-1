@@ -1,5 +1,11 @@
+import { useEffect } from "react";
 import { STORAGE_URL } from "../../config";
-const FilesGrid = ({ files = [], handleClick = () => { }, isActive = () => { } }) => {
+import { useMainContext } from "../context/Main";
+const FilesGrid = ({  handleClick = () => { }, isActive = () => { } }) => {
+    const { files, loadFiles } = useMainContext()
+    useEffect(() => {
+        loadFiles()
+    }, [])
     return (
         <div className='row'>
             {files.map((item) => {

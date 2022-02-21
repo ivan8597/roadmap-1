@@ -7,7 +7,7 @@ const PostCard = ({ item, link, id = 1, isOwner, upDateHandler, deleteHandler })
                 <strong className="d-inline-block mb-2 text-primary">World</strong>
                 <h3 className="mb-0">{title}</h3>
                 <div className="mb-1 text-muted">Nov 12</div>
-                <p className="card-text mb-auto">{body.slice(4, 49)}...</p>
+                <p className="card-text mb-auto">{body.slice(0, 19)}...</p>
                 <Link href={link}><a>Continue reading</a></Link>
                 {
                     isOwner && <div className="btn-group">

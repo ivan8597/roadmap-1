@@ -44,7 +44,10 @@ main{
 }
 .popup{
     position: relative;
-width: 290px;
+width: 490px;
+max-width: 90vw;
+
+
 padding: 19px 19px;
 background-color: white;
 
@@ -76,4 +79,8 @@ display: flex;
 }
 .post-image{
     max-width: 100%;
+}
+
+.ql-editor{
+    min-height: 200px;
 }

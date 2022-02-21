@@ -18,6 +18,11 @@ const PostSchema = new Schema({
         type: String,
         required: true
     },
+ htmlBody:
+    {
+        type: String,
+       
+    },
 });
 
 const model = mongoose.model('Post', PostSchema, 'posts');

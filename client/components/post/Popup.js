@@ -1,11 +1,18 @@
 import { useState } from "react"
 import { useMainContext } from "../context/Main"
+import dynamic from 'next/dynamic'
+
+const QuillEditor= dynamic(
+  () => import("../editer/Quill"),
+  { ssr: false }
+)
 import FilesGrid from "../files/Grid"
 
 const PostPopup = ({ close ,post}) => {
     const [title, setTitle] = useState(post?.title || "")
     const [body, setBody] = useState(post?.body ||"")
-    const [fileId, setFileId] = useState(post?.fileId ||"")
+    const [htmlBody, setHtmlBody] = useState(post?.htmlBody || post?.body || "")
+    const [fileId, setFileId] = useState(post?.fileId ||null)
     const { addPost,editPost } = useMainContext()
     return (
         <div className="overlay">
@@ -14,9 +21,9 @@ const PostPopup = ({ close ,post}) => {
                 <form onSubmit={(e) => {
                     e.preventDefault()
                     if(post){
-                      editPost(post._id,{title,body,fileId})
+                      editPost(post._id,{title,body,fileId,htmlBody})
                     }else{
-                        addPost({ title, body,fileId })
+                        addPost({ title, body,fileId,htmlBody })
                     }
                     close()
                     setTitle('')
@@ -41,17 +48,8 @@ const PostPopup = ({ close ,post}) => {
                         <label htmlFor="exampleFormControlTextarea1" className="form-label">
                             Example textarea
                         </label>
-                        <textarea
-                            className="form-control"
-                            id="exampleFormControlTextarea1"
-                            rows={3}
-                            defaultValue={""}
-                            onChange={(e) => {
-                                setBody(e.target.value)
-                            }}
-                            value={body}
+                        <QuillEditor value={htmlBody} setValue={setHtmlBody} setPlaneValue={setBody}/>
 
-                        />
                     </div>
                     <div className="mb-3">
                         <FilesGrid  handleClick={(fileId)=>{

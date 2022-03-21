@@ -62,7 +62,7 @@ const UserPage = () => {
             {
                 isOwner && <button onClick={() => {
                     setShowpopup(true)
-                }} className='btn btn-primary'>Create post</button>
+                }} className='btn btn-primary mb-3'>Create post</button>
 
             }
 

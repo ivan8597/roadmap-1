@@ -50,13 +50,13 @@ const PostPage = () => {
     return (
         <MainLayout crumbs={crumbs}>
             <div className="row">
-                <div className="col-md-4">
+                <div className="col-md-4 offset-md-2">
                 {!!image && <img className="post-image" src={`${STORAGE_URL}/${image.path}`}/>}
                     <ArticleCard item={post} user={user} userLink={`/users/${user.id}`} />
                     <CommentForm postId={post_id}/>
                 </div>
 
-                <div className="col-md-8">
+                <div className="col-md-4">
                     <Pagination activePage={activeCommentsPage}
                         setActivePage={setActiveCommentsPage}
                         pages={commentsPages}

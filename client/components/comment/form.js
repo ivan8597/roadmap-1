@@ -61,7 +61,7 @@ const CommentForm = ({postId}) => {
                        
                 />
             </div>
-            <button className="w-100 btn btn-lg btn-primary" type="submit">
+            <button className="w-100 mb-4 btn btn-lg btn-primary" type="submit">
            Add Comment
             </button>
            

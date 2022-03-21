@@ -5,11 +5,15 @@ import FilesGrid from "../files/Grid";
 
 
 const ProfileAvatar = () => {
+    const{loadFiles}=useMainContext()
     const { uploadAvatar, updateUser, user } = useUserContext()
+    useEffect(()=>{
+      loadFiles()
+    },[user])
     
     return (
         <><form>
-            <div className="form-file">
+            <div className="form-file mb-3">
                 <input onChange={(e) => {
                     uploadAvatar(e.target.files[0])
                 }} type="file" className="form-file-input" id="customFile" />

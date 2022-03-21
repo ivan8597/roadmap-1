@@ -4,13 +4,14 @@ import { useMainContext } from "../context/Main";
 const FilesGrid = ({  handleClick = () => { }, isActive = () => { } }) => {
     const { files, loadFiles } = useMainContext()
     useEffect(() => {
+      
         loadFiles()
     }, [])
     return (
         <div className='row'>
             {files.map((item) => {
                 return (
-                    <div key={item._id} className="col-md-3 ">
+                    <div key={item._id} className="col-md-3 mb-3 col-sm-6 ">
                         <img onClick={(e) => {
                             handleClick(item._id)
                         }} className={`file-item ${isActive(item._id) ? 'active' : ""}`} src={`${STORAGE_URL}/${item.path}`} />

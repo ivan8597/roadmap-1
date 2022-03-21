@@ -8,7 +8,7 @@ const Avatar = ({ item, link }) => {
             <img src={src} className="bd-placeholder-img rounded-circle" />
             <h2>{username}</h2>
             <p> {name}, {email}</p>
-            {!!link && <p> <Link href={link}><a className="btn btn-secondary" >Посмотреть посты »</a></Link></p>}
+            {!!link && <p> <Link href={link}><a className="btn btn-secondary" >View posts »</a></Link></p>}
         </div>
 
     )

@@ -85,6 +85,7 @@ export const UserProvider = ({ children }) => {
                 updateUser({
                     avatarId:data.item._id
                 })
+                
             })
     }
     const value = {

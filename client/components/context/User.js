@@ -1,8 +1,9 @@
 
 import { createContext, useContext } from 'react';
 import { useState } from "react"
+import { API_URL } from '../../config';
 const UserContext = createContext();
-const API_URL = "http://localhost:3001"
+
 const localSaveUser = (data) => {
     localStorage.setItem("user-info", JSON.stringify(data))
 }

@@ -1,8 +1,9 @@
 import { createContext, useContext } from 'react';
 import { useState } from "react"
+import { API_URL } from '../../config';
 import { useUserContext } from "../context/User"
 const MainContext = createContext();
-const API_URL = "http://localhost:3001"
+
 
 export const MainProvider = ({ children }) => {
     const { user: authUser } = useUserContext()

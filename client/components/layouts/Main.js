@@ -33,16 +33,16 @@ const MainLayout = ({ children, crumbs }) => {
       {!!crumbs && (
         <div className="container">
           <nav aria-label="breadcrumb">
-            <ol class="breadcrumb" >
+            <ol className="breadcrumb" >
               {crumbs.map((crumb, i) => {
                 if (crumb.link) {
                  return (
-                  <li class="breadcrumb-item"><Link href={crumb.link}><a>{crumb.title}</a></Link> 
+                  <li className="breadcrumb-item"><Link href={crumb.link}><a>{crumb.title}</a></Link> 
                   </li>
                  )
                 } else {
                   return (
-                    <li key={i} class="breadcrumb-item active" aria-current="page">{crumb.title} </li>
+                    <li key={i} className="breadcrumb-item active" aria-current="page">{crumb.title} </li>
                   )
                 }
               })}  </ol></nav> </div>

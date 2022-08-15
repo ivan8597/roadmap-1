@@ -2,7 +2,7 @@ import {useRouter} from "next/router"
 import MainLayout from "../../components/layouts/Main"
 import MovieDetail from "../../components/movies/Detail"
 import {useEffect,useState} from "react"
-const API_URL = "http://localhost:3001"
+import { API_URL } from "../../config"
 
 const Movie =()=>{
   const [movie,setMovie]= useState()

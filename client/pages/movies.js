@@ -2,9 +2,8 @@ import { useState, useEffect } from "react"
 import MainLayout from "../components/layouts/Main"
 import Preview from "../components/movies/Preview"
 import Line from "../components/movies/Line"
-//
+import { API_URL } from "../config"
 
-const API_URL = "http://localhost:3001"
 const PAGE_LIMIT=8
 const Page = () => {
     const [items, setItems] = useState([])

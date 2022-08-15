@@ -1,7 +1,7 @@
 import {useRouter} from "next/router";
 import { useUserContext } from "../../components/context/User";
 import MainLayout from "../../components/layouts/Main";
-import EditProfile from "../../components/profile/edit";
+import EditProfile from "../../components/profile/Edit";
 import Link from "next/link";
 import { useState } from "react";
 import ProfileAvatar from "../../components/profile/Avatar";
